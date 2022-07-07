@@ -7,6 +7,7 @@ use ArrayAccess;
 use IteratorAggregate;
 use League\Csv\Writer;
 use SplTempFileObject;
+use Traversable;
 
 class Results implements Countable, ArrayAccess, IteratorAggregate
 {
@@ -247,25 +248,17 @@ class Results implements Countable, ArrayAccess, IteratorAggregate
         return $this;
     }
 
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return $this->results->getIterator();
     }
 
-    /**
-     * @param mixed $offset
-     * @return bool
-     */
-    public function offsetExists($offset)
+    public function offsetExists(mixed $offset): bool
     {
         return $this->results->offsetExists($offset);
     }
 
-    /**
-     * @param mixed $offset
-     * @return Record|null
-     */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         return $this->results->offsetGet($offset);
     }
@@ -274,7 +267,7 @@ class Results implements Countable, ArrayAccess, IteratorAggregate
      * @param mixed $offset
      * @param mixed $value
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         if ($offset) {
             $this->addRecord($value, function () use ($offset) { return $offset; });
@@ -286,15 +279,12 @@ class Results implements Countable, ArrayAccess, IteratorAggregate
     /**
      * @param mixed $offset
      */
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
         $this->results->offsetUnset($offset);
     }
 
-    /**
-     * @return int
-     */
-    public function count()
+    public function count(): int
     {
         return $this->results->count();
     }

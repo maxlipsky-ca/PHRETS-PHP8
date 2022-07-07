@@ -109,7 +109,7 @@ class Record implements \ArrayAccess
      * @param mixed $offset
      * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists(mixed $offset): bool
     {
         return array_key_exists($offset, $this->values);
     }
@@ -118,7 +118,7 @@ class Record implements \ArrayAccess
      * @param mixed $offset
      * @return null|string
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         return $this->get($offset);
     }
@@ -127,7 +127,7 @@ class Record implements \ArrayAccess
      * @param mixed $offset
      * @param mixed $value
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->set($offset, $value);
     }
@@ -135,7 +135,7 @@ class Record implements \ArrayAccess
     /**
      * @param mixed $offset
      */
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
         if (array_key_exists($offset, $this->values)) {
             unset($this->values[$offset]);
